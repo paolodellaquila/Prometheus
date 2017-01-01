@@ -9,7 +9,7 @@ import os.path
 
 # ----------------------function----------------------
 
-#add all thing to file function
+#add all progress to file
 def add():
     # open or create the file
     with open("prometheus.txt", "a") as prometheus_file:
@@ -17,13 +17,17 @@ def add():
         """format log's day:
         |------------------------------------Day n------------------------------------|
         |
-        |-Date (current date)
+        |Name and Username (user date)
         |
-        |-Progress (Current Progress)
+        |Nickname (nickanme twitter)
         |
-        |-Thoughts (Thoughts)
+        |Date (current date)
         |
-        |-Links (Link to the project)
+        |Progress (Current Progress)
+        |
+        |Thoughts (Thoughts)
+        |
+        |Links (Link to the project)
         |
         |------------------------------------------------------------------------------|
         """
@@ -89,11 +93,12 @@ def add():
             if response == "no":
                 check_link = True
 
-        prometheus_file.write("Thought :" + " " + link + "\n")
+        prometheus_file.write("Link :" + " " + link + "\n")
         prometheus_file.write("\n\n")
         #close file
         prometheus_file.close()
 
+#read all file and print
 def read_a():
         if os.path.exists("prometheus.txt") == False:
             print("non hai mai scritto nulla")
@@ -101,7 +106,10 @@ def read_a():
             with open("prometheus.txt", "r") as prometheus_file:
                print(prometheus_file.read())
 
-
+#read specific progress
+def read_s():
+        if os.path.exists("prometheus.txt") == False:
+            print("non hai mai scritto nulla")
 
 
 
@@ -112,11 +120,13 @@ def menu(topic):
         add()
     elif topic == "read_a":
         read_a()
+    elif topic == "read_s":
+        read_s()
     
 # ----------------------main----------------------
 if len(sys.argv) == 1:
 
-    print("welcome to Prometheus: Python text editor\n")
+    print("Welcome to Prometheus: Python text editor\n")
 
     print("You can: \n"
           "- (Add) new thing\n"
