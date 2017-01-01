@@ -5,19 +5,19 @@ import sys
 from pip._vendor.distlib.compat import raw_input
 from datetime import datetime
 import os.path
-
-
+import json
+import twitter
 # ----------------------function----------------------
 
 #add all progress to file
 def add():
-    # open or create the file
+    # open or create file with progress
     with open("prometheus.txt", "a") as prometheus_file:
 
         """format log's day:
         |------------------------------------Day n------------------------------------|
         |
-        |Name and Username (user date)
+        |Name and Username (user data)
         |
         |Nickname (nickanme twitter)
         |
@@ -31,13 +31,27 @@ def add():
         |
         |------------------------------------------------------------------------------|
         """
-        # day
-        """................................."""
+        #open config.json file
+        with open("config.json") as data_file:
+            data = json.load(data_file)
 
-        # Date
-        date = datetime.now()
-        prometheus_file.write("Day" + " " + "(" + str(date.day) + " " + str(date.month) + " " + str(date.year) + ")\n")
-        prometheus_file.write("\n")
+            # day
+            """................................."""
+
+            #Name and Surname
+            prometheus_file.write("Name: " + data["Name"] + "\n")
+            prometheus_file.write("\n")
+            prometheus_file.write("Surname: " + data["Surname"] + "\n")
+            prometheus_file.write("\n")
+
+            #Nickname
+            prometheus_file.write("Nickname: " + data["Nickname"] + "\n")
+            prometheus_file.write("\n")
+
+            # Date
+            date = datetime.now()
+            prometheus_file.write("Day" + " " + "(" + str(date.day) + "/" + str(date.month) + "/" + str(date.year) + ")\n")
+            prometheus_file.write("\n")
 
         # Progress
         check_progress = False
@@ -95,6 +109,12 @@ def add():
 
         prometheus_file.write("Link :" + " " + link + "\n")
         prometheus_file.write("\n\n")
+
+        #tweet
+        if(data["Username_twitter"]!= " " and data["Password_twitter"]!= " "):
+            tweet=twitter.Api(username=data["Username_twitter"], password=data["Password_twitter"])
+            update=tweet.PostUpdate(prometheus_file.read())
+
         #close file
         prometheus_file.close()
 
@@ -106,7 +126,7 @@ def read_a():
             with open("prometheus.txt", "r") as prometheus_file:
                print(prometheus_file.read())
 
-#read specific progress
+#read and print specific progress
 def read_s():
         if os.path.exists("prometheus.txt") == False:
             print("non hai mai scritto nulla")
