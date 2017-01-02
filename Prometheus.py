@@ -6,7 +6,6 @@ from pip._vendor.distlib.compat import raw_input
 from datetime import datetime
 import os.path
 import json
-import tweepy
 # ----------------------function----------------------
 
 #add all progress to file
@@ -111,26 +110,12 @@ def add():
         prometheus_file.write("\n\n")
 
         #tweet
-        tweet = raw_input("Would you like to tweet this progress?(yes/no): ")
-        if tweet == "yes":
-            access_token = "#"
-            access_token_secret = "#"
-            consumer_key = "#"
-            consumer_secret = "#"
-
-            auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
-            auth.set_access_token(access_token, access_token_secret)
-            api = tweepy.API(auth)
-
-            api.update_status("Progress :" + " " + progress + "\n" + "Thought :" + " " + thought + "\n" + "Link :" + " " + link + "\n" + "#100daysofcode")
-
-            print("Ok... all things have been saved and the tweet has been sent")
-        else:
-            print("Your progress has been saved")
+        print("https://twitter.com/intent/tweet/?text=" + data["Nickname"]+ " " + "Progress :" + " " + progress + " "+ "Thought :" + " " + thought + " " + "Link :" + " " + link + " " + " " +"100daysofcode")
+        print("open this link on browser to send tweet\n\n")
+        print("Ok... all things have been saved and the tweet has been sent")
 
         #close file and json
         prometheus_file.close()
-        data.close()
 
 #read all file and print
 def read_a():
