@@ -6,7 +6,7 @@ from pip._vendor.distlib.compat import raw_input
 from datetime import datetime
 import os.path
 import json
-import twitter
+import tweepy
 # ----------------------function----------------------
 
 #add all progress to file
@@ -111,17 +111,31 @@ def add():
         prometheus_file.write("\n\n")
 
         #tweet
-        if(data["Username_twitter"]!= " " and data["Password_twitter"]!= " "):
-            tweet=twitter.Api(username=data["Username_twitter"], password=data["Password_twitter"])
-            update=tweet.PostUpdate(prometheus_file.read())
+        tweet = raw_input("Would you like to tweet this progress?(yes/no): ")
+        if tweet == "yes":
+            access_token = "#"
+            access_token_secret = "#"
+            consumer_key = "#"
+            consumer_secret = "#"
 
-        #close file
+            auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
+            auth.set_access_token(access_token, access_token_secret)
+            api = tweepy.API(auth)
+
+            api.update_status("Progress :" + " " + progress + "\n" + "Thought :" + " " + thought + "\n" + "Link :" + " " + link + "\n" + "#100daysofcode")
+
+            print("Ok... all things have been saved and the tweet has been sent")
+        else:
+            print("Your progress has been saved")
+
+        #close file and json
         prometheus_file.close()
+        data.close()
 
 #read all file and print
 def read_a():
         if os.path.exists("prometheus.txt") == False:
-            print("non hai mai scritto nulla")
+            print("You haven't write yet")
         else:
             with open("prometheus.txt", "r") as prometheus_file:
                print(prometheus_file.read())
@@ -129,7 +143,7 @@ def read_a():
 #read and print specific progress
 def read_s():
         if os.path.exists("prometheus.txt") == False:
-            print("non hai mai scritto nulla")
+            print("You haven't write yet")
 
 
 
