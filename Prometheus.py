@@ -155,12 +155,17 @@ if len(sys.argv) == 1:
     check_topic = False
 
     while check_topic == False:
-        sys.argv[1] = raw_input("What do you want to do?")
-        sys.argv[1].lower()
-        if sys.argv[1] == "add" or sys.argv[1] == "read_a" or sys.argv[1] == "read_s":
+        sys.argv[0] = raw_input("What do you want to do?")
+        sys.argv[0].lower()
+        if sys.argv[0] == "add" or sys.argv[0] == "read_a" or sys.argv[0] == "read_s":
             check_topic = True
         else:
             print("wrong action")
-else:
     # call menu
-    menu(sys.argv[1])
+    menu(sys.argv[0])
+else:
+    if sys.argv[1] == "add" or sys.argv[1] == "read_a" or sys.argv[1] == "read_s":
+        # call menu
+        menu(sys.argv[1])
+    else:
+        print("command not found")
