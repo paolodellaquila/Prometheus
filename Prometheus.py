@@ -6,8 +6,7 @@ from pip._vendor.distlib.compat import raw_input
 from datetime import datetime
 import os.path
 import json
-
-
+import os
 # ----------------------function----------------------
 
 # modify number of day in json
@@ -114,12 +113,19 @@ def data_user():
 
         # tweet
         print(
-            "https://twitter.com/intent/tweet/?text=" + " " + "Progress :" + " " + progress + " " + "Thought :" + " " + thought + " " + "Link :" + " " + link + " " + " " + "100daysofcode")
+            "https://twitter.com/intent/tweet/?text=" + " " + "Progress :" + " " + progress + " " + "Thought :" + " " + thought +
+            " " + "Link :" + " " + link + " " + " " + "100daysofcode")
 
     print("\n\nOpen this link on browser to send tweet\n\n")
 
     #close file
     prometheus_file.close()
+
+def push():
+    commit = raw_input("\n\nInsert commit: ")
+    os.system("git add *")
+    os.system("git commit -m 'test os.system'")
+    os.system("git push")
 
 # add all progress to file
 def add():
@@ -144,7 +150,10 @@ def add():
     # data from user
     data_user()
 
-    print("Ok... all things have been saved\n")
+    #push on repo
+    push()
+
+    print("Ok... all things have been saved. Now we'll push on repo...\n")
 
 
 # read all file and print
