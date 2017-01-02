@@ -6,52 +6,60 @@ from pip._vendor.distlib.compat import raw_input
 from datetime import datetime
 import os.path
 import json
+
+
 # ----------------------function----------------------
 
-#add all progress to file
-def add():
-    # open or create file with progress
-    with open("prometheus.txt", "a") as prometheus_file:
+# modify number of day in json
+def update_json_day(day):
+    # open config.json file (read)
+    with open("config.json", "r") as data_file:
+        data = json.load(data_file)
+        data["Day"] = str(day)
 
-        """format log's day:
-        |------------------------------------Day n------------------------------------|
-        |
-        |Name and Username (user data)
-        |
-        |Nickname (nickanme twitter)
-        |
-        |Date (current date)
-        |
-        |Progress (Current Progress)
-        |
-        |Thoughts (Thoughts)
-        |
-        |Links (Link to the project)
-        |
-        |------------------------------------------------------------------------------|
-        """
-        #open config.json file
-        with open("config.json") as data_file:
-            data = json.load(data_file)
+    # open config.json file (write)
+    with open("config.json", "w") as data_file:
+        data_file.write(json.dumps(data))
 
-            # day
-            """................................."""
+    # close
+    data_file.close()
 
-            #Name and Surname
+
+# load user data from json
+def data_json():
+    # open config.json file(read)
+    with open("config.json", "r") as data_file:
+        data = json.load(data_file)
+        # open in (a) file with progress
+        with open("prometheus.txt", "a") as prometheus_file:
+            # Date
+            date = datetime.now()
+            day = int(data["Day"])
+            day += 1
+            prometheus_file.write(
+                "----------Day " + "[" + data["Day"] + "]" + " on Date " + "(" + str(date.day) + "/" + str(
+                    date.month) + "/" + str(date.year) + ")" + "----------" + "\n")
+            prometheus_file.write("\n")
+
+            # call update_json_day
+            update_json_day(day)
+
+            # Name and Surname
             prometheus_file.write("Name: " + data["Name"] + "\n")
             prometheus_file.write("\n")
             prometheus_file.write("Surname: " + data["Surname"] + "\n")
             prometheus_file.write("\n")
 
-            #Nickname
-            prometheus_file.write("Nickname: " + data["Nickname"] + "\n")
-            prometheus_file.write("\n")
+        # close json
+        data_file.close()
+        #close file
+        prometheus_file.close()
 
-            # Date
-            date = datetime.now()
-            prometheus_file.write("Day" + " " + "(" + str(date.day) + "/" + str(date.month) + "/" + str(date.year) + ")\n")
-            prometheus_file.write("\n")
 
+# load data from user input
+def data_user():
+    # open in (a) file with progress
+    with open("prometheus.txt", "a") as prometheus_file:
         # Progress
         check_progress = False
         while check_progress == False:
@@ -67,9 +75,6 @@ def add():
                     print("wrong action")
             if response == "no":
                 check_progress = True
-
-        prometheus_file.write("Progress :" + " " + progress + "\n")
-        prometheus_file.write("\n")
 
         # Thought
         check_thought = False
@@ -87,9 +92,6 @@ def add():
             if response == "no":
                 check_thought = True
 
-        prometheus_file.write("Thought :" + " " + thought + "\n")
-        prometheus_file.write("\n")
-
         # Link
         check_link = False
         while check_link == False:
@@ -106,34 +108,61 @@ def add():
             if response == "no":
                 check_link = True
 
-        prometheus_file.write("Link :" + " " + link + "\n")
-        prometheus_file.write("\n\n")
+        # write from progress to link on file
+        prometheus_file.write(
+            "Progress :" + " " + progress + "\n\n" + "Thought :" + " " + thought + "\n\n" + "Link :" + " " + link + "\n\n\n")
 
-        #tweet
-        print("https://twitter.com/intent/tweet/?text=" + data["Nickname"]+ " " + "Progress :" + " " + progress + " "+ "Thought :" + " " + thought + " " + "Link :" + " " + link + " " + " " +"100daysofcode")
-        print("open this link on browser to send tweet\n\n")
-        print("Ok... all things have been saved and the tweet has been sent")
+        # tweet
+        print(
+            "https://twitter.com/intent/tweet/?text=" + " " + "Progress :" + " " + progress + " " + "Thought :" + " " + thought + " " + "Link :" + " " + link + " " + " " + "100daysofcode")
 
-        #close file and json
-        prometheus_file.close()
+    print("\n\nOpen this link on browser to send tweet\n\n")
 
-#read all file and print
+    #close file
+    prometheus_file.close()
+
+# add all progress to file
+def add():
+
+    """format log's day:
+    |------------------------------------Day [N] on Date (current date)------------------------------------|
+    |
+    |Name and Username (user data)
+    |                                ------from json
+    |Progress (Current Progress)
+    |
+    |Thoughts (Thoughts)
+    |
+    |Links (Link to the project)
+    |
+    |                                 ------from user
+    """
+
+    # data from json
+    data_json()
+
+    # data from user
+    data_user()
+
+    print("Ok... all things have been saved\n")
+
+
+# read all file and print
 def read_a():
-        if os.path.exists("prometheus.txt") == False:
-            print("You haven't write yet")
-        else:
-            with open("prometheus.txt", "r") as prometheus_file:
-               print(prometheus_file.read())
+    if os.path.exists("prometheus.txt") == False:
+        print("You haven't write yet")
+    else:
+        with open("prometheus.txt", "r") as prometheus_file:
+            print(prometheus_file.read())
 
-#read and print specific progress
+
+# read and print specific progress
 def read_s():
-        if os.path.exists("prometheus.txt") == False:
-            print("You haven't write yet")
+    if os.path.exists("prometheus.txt") == False:
+        print("You haven't write yet")
 
 
-
-
-#menu function
+# menu function
 def menu(topic):
     if topic == "add":
         add()
@@ -141,7 +170,8 @@ def menu(topic):
         read_a()
     elif topic == "read_s":
         read_s()
-    
+
+
 # ----------------------main----------------------
 if len(sys.argv) == 1:
 
