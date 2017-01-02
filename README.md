@@ -1,4 +1,2 @@
 # Prometheus
-prompt text editor for describe all programming days 
-
-#100daysofcode
+An easy tracker for your progress in the #100daysofcode event
