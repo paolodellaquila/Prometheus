@@ -194,14 +194,14 @@ if len(sys.argv) == 1:
     check_topic = False
 
     while check_topic == False:
-        sys.argv[0] = raw_input("What do you want to do?")
-        sys.argv[0].lower()
-        if sys.argv[0] == "add" or sys.argv[0] == "read_a" or sys.argv[0] == "read_s":
+        topic = raw_input("What do you want to do?")
+        topic.lower()
+        if topic == "add" or topic == "read_a" or topic == "read_s":
             check_topic = True
         else:
             print("wrong action")
     # call menu
-    menu(sys.argv[0])
+    menu(topic)
 else:
     if sys.argv[1] == "add" or sys.argv[1] == "read_a" or sys.argv[1] == "read_s":
         # call menu
