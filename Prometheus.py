@@ -129,6 +129,16 @@ def push():
     os.system("git commit -m" + "\"" + commit + "\"")
     os.system("git push")
 
+def md_to_txt():
+    prevName = "log.md"
+    nextName = "log.txt"
+    os.rename(prevName,nextName)
+
+def txt_to_md():
+    prevName = "log.txt"
+    nextName = "log.md"
+    os.rename(prevName,nextName)
+
 # add all progress to file
 def add():
 
@@ -145,10 +155,9 @@ def add():
     |
     |                                 ------from user
     """
+
     #convert md file to txt
-    prevName = "log.md"
-    nextName = "log.txt"
-    os.rename(prevName,nextName)
+    md_to_txt()
 
     # data from json
     data_json()
@@ -157,7 +166,7 @@ def add():
     data_user()
 
     #convert txt file to md
-    os.rename(nextName,prevName)
+    txt_to_md()
 
     #push on repo
     push()
@@ -167,11 +176,17 @@ def add():
 
 # read all file and print
 def read_a():
-    if os.path.exists("prometheus.txt") == False:
+    if os.path.exists("log.md") == False:
         print("You haven't write yet")
     else:
-        with open("prometheus.txt", "r") as prometheus_file:
+        #convert md file to txt
+        md_to_txt()
+
+        with open("log.txt", "r") as prometheus_file:
             print(prometheus_file.read())
+
+        #convert txt file to md
+        txt_to_md()
 
 
 # read and print specific progress
