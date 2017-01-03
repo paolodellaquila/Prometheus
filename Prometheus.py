@@ -7,7 +7,6 @@ from datetime import datetime
 import os.path
 import json
 import os
-import re
 # ----------------------function----------------------
 
 # modify number of day in json
@@ -31,7 +30,7 @@ def data_json():
     with open("config.json", "r") as data_file:
         data = json.load(data_file)
         # open in (a) file with progress
-        with open("prometheus.txt", "a") as prometheus_file:
+        with open("log.txt", "a") as prometheus_file:
             # Date
             date = datetime.now()
             day = int(data["Day"])
@@ -59,7 +58,7 @@ def data_json():
 # load data from user input
 def data_user():
     # open in (a) file with progress
-    with open("prometheus.txt", "a") as prometheus_file:
+    with open("log.txt", "a") as prometheus_file:
         # Progress
         check_progress = False
         while check_progress == False:
@@ -146,12 +145,19 @@ def add():
     |
     |                                 ------from user
     """
+    #convert md file to txt
+    prevName = "log.md"
+    nextName = "log.txt"
+    os.rename(prevName,nextName)
 
     # data from json
     data_json()
 
     # data from user
     data_user()
+
+    #convert txt file to md
+    os.rename(nextName,prevName)
 
     #push on repo
     push()
