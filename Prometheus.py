@@ -126,7 +126,7 @@ def push():
     commit = raw_input("\n\nInsert commit: ")
     os.system("cd/" + path)
     os.system("git add .")
-    os.system("git commit -m" + '%s') % (commit)
+    os.system("git commit -m '%s' ") % (commit)
     os.system("git push")
 
 # add all progress to file
