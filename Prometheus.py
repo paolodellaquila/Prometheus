@@ -124,9 +124,9 @@ def data_user():
 def push():
     path = os.path.abspath('Prometheus')
     commit = raw_input("\n\nInsert commit: ")
-    os.system("cd/" + str(path))
+    os.system("cd/" + path)
     os.system("git add .")
-    os.system("git commit -m 'test2' ")
+    os.system("git commit -m" + 'test2')
     os.system("git push")
 
 # add all progress to file
