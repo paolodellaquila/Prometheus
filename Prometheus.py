@@ -7,6 +7,7 @@ from datetime import datetime
 import os.path
 import json
 import os
+import re
 # ----------------------function----------------------
 
 # modify number of day in json
@@ -63,10 +64,10 @@ def data_user():
         check_progress = False
         while check_progress == False:
             check_response = False
-            progress = raw_input("Write your progress: ")
+            progress = input("Write your progress: ")
             progress.lower()
             while check_response == False:
-                response = raw_input("Rewrite progress? (yes/no): ")
+                response = input("Rewrite progress? (yes/no): ")
                 response.lower()
                 if response == "yes" or response == "no":
                     check_response = True
@@ -79,10 +80,10 @@ def data_user():
         check_thought = False
         while check_thought == False:
             check_response = False
-            thought = raw_input("Write your thought: ")
+            thought = input("Write your thought: ")
             progress.lower()
             while check_response == False:
-                response = raw_input("Rewrite thought? (yes/no): ")
+                response = input("Rewrite thought? (yes/no): ")
                 response.lower()
                 if response == "yes" or response == "no":
                     check_response = True
@@ -95,10 +96,10 @@ def data_user():
         check_link = False
         while check_link == False:
             check_response = False
-            link = raw_input("Write your link: ")
+            link = input("Write your link: ")
             progress.lower()
             while check_response == False:
-                response = raw_input("Rewrite link? (yes/no): ")
+                response = input("Rewrite link? (yes/no): ")
                 response.lower()
                 if response == "yes" or response == "no":
                     check_response = True
@@ -155,7 +156,7 @@ def add():
     #push on repo
     push()
 
-    print("Ok... all things have been saved. Now we'll push on repo...\n")
+    print("\nOk... all things have been saved. Now we'll push on repo...\n")
 
 
 # read all file and print
@@ -168,19 +169,16 @@ def read_a():
 
 
 # read and print specific progress
-def read_s():
-    if os.path.exists("prometheus.txt") == False:
-        print("You haven't write yet")
-
-
+def help():
+    print ("\nadd: add progress to file and push on repo\n" + "\nread_a: read all file and print contens on screen\n")
 # menu function
 def menu(topic):
     if topic == "add":
         add()
     elif topic == "read_a":
         read_a()
-    elif topic == "read_s":
-        read_s()
+    elif topic == "help":
+        help()
 
 
 # ----------------------main----------------------
@@ -191,22 +189,21 @@ if len(sys.argv) == 1:
     print("You can: \n"
           "- (Add) new thing\n"
           "- (Read_A) all file\n"
-          "- (Read_S) specify thing\n\n")
+          "- (Help) show possible command\n\n")
 
     check_topic = False
 
     while check_topic == False:
-        topic = raw_input("What do you want to do?")
-        topic.lower()
-        if topic == "add" or topic == "read_a" or topic == "read_s":
+        topic = input("What do you want to do?").lower()
+        if topic == "add" or topic == "read_a" or topic == "help":
             check_topic = True
         else:
             print("wrong action")
     # call menu
     menu(topic)
 else:
-    if sys.argv[1] == "add" or sys.argv[1] == "read_a" or sys.argv[1] == "read_s":
+    if sys.argv[1].lower() == "add" or sys.argv[1].lower() == "read_a" or sys.argv[1].lower() == "help":
         # call menu
-        menu(sys.argv[1])
+        menu(sys.argv[1].lower())
     else:
         print("command not found")
