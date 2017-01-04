@@ -4,11 +4,7 @@ Prometheus is an easy tracker for your progress in the #100daysofcode event
 
 # CodeClimate
 
-<a href="https://codeclimate.com/github/Francescopaolo44/Prometheus"><img src="https://codeclimate.com/github/Francescopaolo44/Prometheus/badges/gpa.svg" /></a>
-
-<a href="https://codeclimate.com/github/Francescopaolo44/Prometheus/coverage"><img src="https://codeclimate.com/github/Francescopaolo44/Prometheus/badges/coverage.svg" /></a>
-
-<a href="https://codeclimate.com/github/Francescopaolo44/Prometheus"><img src="https://codeclimate.com/github/Francescopaolo44/Prometheus/badges/issue_count.svg" /></a>
+<a href="https://codeclimate.com/github/Francescopaolo44/Prometheus"><img src="https://codeclimate.com/github/Francescopaolo44/Prometheus/badges/gpa.svg" /></a> <a href="https://codeclimate.com/github/Francescopaolo44/Prometheus/coverage"><img src="https://codeclimate.com/github/Francescopaolo44/Prometheus/badges/coverage.svg" /></a> <a href="https://codeclimate.com/github/Francescopaolo44/Prometheus"><img src="https://codeclimate.com/github/Francescopaolo44/Prometheus/badges/issue_count.svg" /></a>
 
 # Warning
 Prometheus is still in development so you could meet some bugs.
