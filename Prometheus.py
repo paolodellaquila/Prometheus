@@ -36,75 +36,52 @@ def data_json():
             day += 1
             prometheus_file.write(
                 "### ----------Day " + "[" + data["Day"] + "]" + " on Date " + "(" + str(date.day) + "/" + str(
-                    date.month) + "/" + str(date.year) + ")" + "----------" + "\n")
-            prometheus_file.write("\n")
+                    date.month) + "/" + str(date.year) + ")" + "----------" + "\n\n")
 
             # call update_json_day
             update_json_day(day)
 
             # Name and Surname
-            prometheus_file.write("* [Name] - " + data["Name"] + "\n")
-            prometheus_file.write("\n")
-            prometheus_file.write("* [Surname] - " + data["Surname"] + "\n")
-            prometheus_file.write("\n")
+            prometheus_file.write(
+                "* [Name] - " + data["Name"] + "\n\n" + "* [Surname] - " + data["Surname"] + "\n\n")
 
         # close json
         data_file.close()
         #close file
         prometheus_file.close()
 
+#rewrite_check
+def rewrite():
+    check_response = False
+    while check_response == False:
+        response = input ("Rewrite Progress?(yes/no): ").lower()
+        if response == "yes" or response == "no":
+            if response == 'yes':
+                return False
+            else:
+                return True
+        else:
+            print("\n wrong action")
 
 # load data from user input
 def data_user():
     # open in (a) file with progress
     with open("log.md", "a") as prometheus_file:
         # Progress
-        check_progress = False
-        while check_progress == False:
-            check_response = False
-            progress = input("Write your progress: ")
-            progress.lower()
-            while check_response == False:
-                response = input("Rewrite progress? (yes/no): ")
-                response.lower()
-                if response == "yes" or response == "no":
-                    check_response = True
-                else:
-                    print("wrong action")
-            if response == "no":
-                check_progress = True
-
+        check_response = False
+        while check_response == False:
+            progress = input("Write your progress: ").lower()
+            check_response = rewrite()
         # Thought
-        check_thought = False
-        while check_thought == False:
-            check_response = False
-            thought = input("Write your thought: ")
-            progress.lower()
-            while check_response == False:
-                response = input("Rewrite thought? (yes/no): ")
-                response.lower()
-                if response == "yes" or response == "no":
-                    check_response = True
-                else:
-                    print("wrong action")
-            if response == "no":
-                check_thought = True
-
+        check_response = False
+        while check_response == False:
+            thought = input("Write your thought: ").lower()
+            check_response = rewrite()
         # Link
-        check_link = False
-        while check_link == False:
-            check_response = False
-            link = input("Write your link: ")
-            progress.lower()
-            while check_response == False:
-                response = input("Rewrite link? (yes/no): ")
-                response.lower()
-                if response == "yes" or response == "no":
-                    check_response = True
-                else:
-                    print("wrong action")
-            if response == "no":
-                check_link = True
+        check_response = False
+        while check_response == False:
+            link = input("Write your link: ").lower()
+            check_response = rewrite()
 
         # write from progress to link on file in markdown sintax
         prometheus_file.write(
@@ -187,7 +164,7 @@ def menu(topic):
 # ----------------------main----------------------
 if len(sys.argv) == 1:
 
-    print("Welcome to Prometheus: Python text editor\n")
+    print("\nWelcome to Prometheus: Python text editor\n")
 
     print("You can: \n"
           "- (Add) new thing\n"
@@ -201,7 +178,7 @@ if len(sys.argv) == 1:
         if topic == "add" or topic == "read_a" or topic == "help":
             check_topic = True
         else:
-            print("wrong action")
+            print("\nwrong action")
     # call menu
     menu(topic)
 else:
@@ -209,4 +186,4 @@ else:
         # call menu
         menu(sys.argv[1].lower())
     else:
-        print("command not found")
+        print("\ncommand not found")
