@@ -28,6 +28,7 @@ Follow this step for use Prometheus correctly:
 * [Prometheus] - Copy Prometheus.py + config.json in your #100daysofcode Repo
 * [config.json] - Open config file and add your name and surname. Mustn't modify the day value
 * [Promtheus.py] - Run prometheus.py tools
+* [help] - Run prometheus.py help to print all commands
 
 ### Dependencies
 

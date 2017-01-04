@@ -170,7 +170,10 @@ def read_a():
 
 # read and print specific progress
 def help():
-    print ("\nadd: add progress to file and push on repo\n" + "\nread_a: read all file and print contens on screen\n")
+    print (
+        "\n     prometheus.py:                           open the complete interface of the tool\n" +
+        "\n     prometheus.py add:                       add progress to file and push on repo\n" +
+        "\n     prometheus.py read_a:                    read all file and print contens on screen\n")
 # menu function
 def menu(topic):
     if topic == "add":
