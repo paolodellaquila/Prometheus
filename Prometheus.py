@@ -2,11 +2,10 @@
 
 # module
 import sys
-from pip._vendor.distlib.compat import raw_input
 from datetime import datetime
 import os.path
-import json
 import os
+import json
 # ----------------------function----------------------
 
 # modify number of day in json
@@ -30,13 +29,13 @@ def data_json():
     with open("config.json", "r") as data_file:
         data = json.load(data_file)
         # open in (a) file with progress
-        with open("log.txt", "a") as prometheus_file:
+        with open("log.md", "a") as prometheus_file:
             # Date
             date = datetime.now()
             day = int(data["Day"])
             day += 1
             prometheus_file.write(
-                "----------Day " + "[" + data["Day"] + "]" + " on Date " + "(" + str(date.day) + "/" + str(
+                "### ----------Day " + "[" + data["Day"] + "]" + " on Date " + "(" + str(date.day) + "/" + str(
                     date.month) + "/" + str(date.year) + ")" + "----------" + "\n")
             prometheus_file.write("\n")
 
@@ -44,9 +43,9 @@ def data_json():
             update_json_day(day)
 
             # Name and Surname
-            prometheus_file.write("Name: " + data["Name"] + "\n")
+            prometheus_file.write("* [Name] - " + data["Name"] + "\n")
             prometheus_file.write("\n")
-            prometheus_file.write("Surname: " + data["Surname"] + "\n")
+            prometheus_file.write("* [Surname] - " + data["Surname"] + "\n")
             prometheus_file.write("\n")
 
         # close json
@@ -58,7 +57,7 @@ def data_json():
 # load data from user input
 def data_user():
     # open in (a) file with progress
-    with open("log.txt", "a") as prometheus_file:
+    with open("log.md", "a") as prometheus_file:
         # Progress
         check_progress = False
         while check_progress == False:
@@ -107,9 +106,9 @@ def data_user():
             if response == "no":
                 check_link = True
 
-        # write from progress to link on file
+        # write from progress to link on file in markdown sintax
         prometheus_file.write(
-            "Progress :" + " " + progress + "\n\n" + "Thought :" + " " + thought + "\n\n" + "Link :" + " " + link + "\n\n\n")
+            "* [Progress] - " + " " + progress + "\n\n" + "* [Thought] - " + " " + thought + "\n\n" + "* [Link] - " + " " + link + "\n\n\n")
 
         # tweet
         print(
@@ -123,50 +122,36 @@ def data_user():
 
 def push():
     path = os.path.abspath('Prometheus')
-    commit = str(raw_input("\n\nInsert commit: "))
+    commit = str(input("\n\nInsert commit: "))
     os.system("cd/" + path)
     os.system("git add .")
     os.system("git commit -m" + "\"" + commit + "\"")
     os.system("git push")
 
-def md_to_txt():
-    prevName = "log.md"
-    nextName = "log.txt"
-    os.rename(prevName,nextName)
-
-def txt_to_md():
-    prevName = "log.txt"
-    nextName = "log.md"
-    os.rename(prevName,nextName)
-
 # add all progress to file
 def add():
 
     """format log's day:
-    |------------------------------------Day [N] on Date (current date)------------------------------------|
-    |
-    |Name and Username (user data)
-    |                                ------from json
-    |Progress (Current Progress)
-    |
-    |Thoughts (Thoughts)
-    |
-    |Links (Link to the project)
-    |
-    |                                 ------from user
-    """
+    *** ------------------------------------Day [N] on Date (current date)------------------------------------|
 
-    #convert md file to txt
-    md_to_txt()
+    * [Name] - (user data)
+
+    * [Surname] - (user data)
+                                      ------from json
+    * [Progress] - (Current Progress)
+
+    * [Thoughts] - (Thoughts)
+
+    * [Links] - (Link to the project)
+
+                                      ------from user
+    """
 
     # data from json
     data_json()
 
     # data from user
     data_user()
-
-    #convert txt file to md
-    txt_to_md()
 
     #push on repo
     push()
@@ -179,14 +164,8 @@ def read_a():
     if os.path.exists("log.md") == False:
         print("You haven't write yet")
     else:
-        #convert md file to txt
-        md_to_txt()
-
-        with open("log.txt", "r") as prometheus_file:
+        with open("log.md", "r") as prometheus_file:
             print(prometheus_file.read())
-
-        #convert txt file to md
-        txt_to_md()
 
 
 # read and print specific progress
