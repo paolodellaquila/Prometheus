@@ -6,9 +6,6 @@ Prometheus is an easy tracker for your progress in the #100daysofcode event
 
 <a href="https://codeclimate.com/github/Francescopaolo44/Prometheus"><img src="https://codeclimate.com/github/Francescopaolo44/Prometheus/badges/gpa.svg" /></a> <a href="https://codeclimate.com/github/Francescopaolo44/Prometheus/coverage"><img src="https://codeclimate.com/github/Francescopaolo44/Prometheus/badges/coverage.svg" /></a> <a href="https://codeclimate.com/github/Francescopaolo44/Prometheus"><img src="https://codeclimate.com/github/Francescopaolo44/Prometheus/badges/issue_count.svg" /></a>
 
-# Warning
-Prometheus is still in development so you could meet some bugs.
-
 # Introduction
 With prometheus you can:
 
@@ -29,7 +26,7 @@ Prometheus is written in python, an easy and powerful language for powerful tool
 ### Get Started
 
 Follow this step for use Prometheus correctly:
-* [Prometheus] - Copy Prometheus.py + config.json in your #100daysofcode Repo
+* [Prometheus] - Open Prometheus folder , copy Prometheus.py + config.json in your #100daysofcode Repo
 * [config.json] - Open config file and add your name and surname. Mustn't modify the day value
 * [Promtheus.py] - Run prometheus.py tools
 * [help] - Run prometheus.py help to print all commands
